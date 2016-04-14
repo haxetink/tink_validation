@@ -1,5 +1,6 @@
 {
   "name": "anon",
+  "url": "https://github.com/kevinresol/anon",
   "license": "MIT",
   "tags":["cross", "anon"],
   "classPath": "src",
