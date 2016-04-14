@@ -103,7 +103,7 @@ class GenExtractor {
 		}
 	}
 		
-	static public function enm(constrictors:Array<EnumConstructor>, ct, _)
+	static public function enm(_, _, _, _)
 		return macro throw "Not supported";
 		
 	static public function dyn(_, _)
