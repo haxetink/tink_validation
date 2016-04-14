@@ -1,3 +1,5 @@
+# Anon ![travis](https://travis-ci.org/kevinresol/anon.svg?branch=master)
+
 Runtime type check and value extractor for dynamic objects
 
 ## Background
