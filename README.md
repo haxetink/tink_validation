@@ -8,7 +8,7 @@ Sometimes we just cannot make sure the data type during compile time,
 usually when the input data comes from external source. For example:
 
 ```haxe
-var obj:{myInt:Int} = Json.parse('{myString:"hello, world"}');
+var obj:{myInt:Int} = Json.parse('{"myString":"hello, world"}');
 trace(obj.myInt + 10); // fail
 
 // for the best security, we need to check it manually
