@@ -1,0 +1,12 @@
+{
+  "name": "anon",
+  "license": "MIT",
+  "tags":["cross", "anon"],
+  "classPath": "src",
+  "contributors": ["kevinresol"],
+  "version": "0.0.1",
+  "releasenote": "Initial commit",
+  "dependencies": {
+	  "tink_typecrawler":""
+  }
+}
