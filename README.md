@@ -1,4 +1,4 @@
-# Anon ![travis](https://travis-ci.org/kevinresol/anon.svg?branch=master)
+# Anon [![Build Status](https://travis-ci.org/haxetink/tink_anon.svg?branch=master)](https://travis-ci.org/haxetink/tink_anon)
 
 Runtime type check and value extractor for dynamic objects
 
