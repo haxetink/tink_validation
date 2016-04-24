@@ -103,8 +103,17 @@ class GenExtractor {
 		}
 	}
 		
-	static public function enm(_, _, _, _)
-		return macro if(!Reflect.isEnumValue(value)) throw 'The value `' + value + '` should be an EnumValue' else value;
+	static public function enm(_, ct, _, _) {
+		var name = switch ct {
+			case TPath({pack: pack, name: name, sub: sub}):
+				var ret = pack.copy();
+				ret.push(name);
+				if(sub != null) ret.push(sub);
+				ret;
+			default: throw 'assert';
+		}
+		return macro if(!Std.is(value, $p{name})) throw 'The value `' + value + '` should be an EnumValue' else value;
+	}
 		
 	static public function dyn(_, _)
 		return macro value;
