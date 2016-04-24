@@ -31,6 +31,27 @@ class RunTests extends TestCase
 		assertFalse(Reflect.hasField(r, "extra"));
 	}
 	
+	function testEnum()
+	{
+		var arr = ['1', '2', '3'];
+		var e = EnumA(1, arr);
+		var source:Dynamic = {e: e};
+		var r:{e:TestEnum} = Validation.extract(source);
+		
+		switch r.e {
+			case EnumA(int, array):
+				assertEquals(1, int);
+				assertEquals(arr.length, array.length);
+				for(i in 0...arr.length) assertEquals(arr[i], array[i]);
+		}
+		
+		try {
+			var source:Dynamic = {e: "string"};
+			var r:{e:TestEnum} = Validation.extract(source);
+			assertTrue(false); // should not reach here
+		} catch(e:Dynamic) assertTrue(true);
+	}
+	
 	function testDynamic()
 	{
 		var source:Dynamic = {date: Date.now(), float: 1.1, string: '1', array: [1,2,3]};
@@ -62,3 +83,7 @@ class RunTests extends TestCase
 	}
 }
 
+
+enum TestEnum {
+	EnumA(int:Int, array:Array<String>);
+}
