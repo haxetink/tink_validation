@@ -1,4 +1,4 @@
-# Anon [![Build Status](https://travis-ci.org/haxetink/tink_anon.svg?branch=master)](https://travis-ci.org/haxetink/tink_anon)
+# tink_validation [![Build Status](https://travis-ci.org/haxetink/tink_validation.svg?branch=master)](https://travis-ci.org/haxetink/tink_validation)
 
 Runtime type check and value extractor for dynamic objects
 
@@ -23,11 +23,11 @@ object contains only the fields you need.
 
 ```haxe
 var source:Dynamic = {a:1, b:"2"};
-var r:{a:Int} = Anon.extract(source); // r is {a:1}
+var r:{a:Int} = Validation.extract(source); // r is {a:1}
 
 var source:Dynamic = {a:1, b:"2"};
-var r:{a:Int, ?c:Int} = Anon.extract(source); // r is {a:1, c:null}
+var r:{a:Int, ?c:Int} = Validation.extract(source); // r is {a:1, c:null}
 
 var source:Dynamic = {a:1, b:"2"};
-var r:{a:Int, c:Int} = Anon.extract(source); // error: the field `c` does not exist
+var r:{a:Int, c:Int} = Validation.extract(source); // error: the field `c` does not exist
 ```
