@@ -2,6 +2,7 @@ package;
 
 import haxe.unit.TestCase;
 import haxe.unit.TestRunner;
+import tink.Validation;
 
 class RunTests extends TestCase
 {
@@ -21,7 +22,7 @@ class RunTests extends TestCase
 	{
 		var now = new Date(2016,1,1,1,1,1);
 		var source:Dynamic = {date: now, other: now, extra: "now"};
-		var r:{date:Date, ?other:Date, ?optional:Date} = Anon.extract(source);
+		var r:{date:Date, ?other:Date, ?optional:Date} = Validation.extract(source);
 		
 		assertEquals(now.getTime(), r.date.getTime());
 		assertEquals(now.getTime(), r.other.getTime());
@@ -33,7 +34,7 @@ class RunTests extends TestCase
 	function testDynamic()
 	{
 		var source:Dynamic = {date: Date.now(), float: 1.1, string: '1', array: [1,2,3]};
-		var r:{date:Dynamic, float:Dynamic, string:Dynamic, array:Dynamic} = Anon.extract(source);
+		var r:{date:Dynamic, float:Dynamic, string:Dynamic, array:Dynamic} = Validation.extract(source);
 		
 		assertEquals(source.date, r.date);
 		assertEquals(source.float, r.float);
@@ -44,7 +45,7 @@ class RunTests extends TestCase
 	function testComplex()
 	{
 		var source:Dynamic= {a:1, b:2, c:"c", d:{a:1, b:1}, e:{a:1, b:1}, f:[{a:1},{a:2}]};
-		var r:{?c:String, b:Float, f:Array<{a:Int}>, ?g:Bool} = Anon.extract(source);
+		var r:{?c:String, b:Float, f:Array<{a:Int}>, ?g:Bool} = Validation.extract(source);
 		
 		assertFalse(Reflect.hasField(r, 'a'));
 		assertEquals(source.b, r.b);

@@ -1,4 +1,4 @@
-package anon;
+package tink.validation;
 
 import haxe.macro.Context;
 import haxe.macro.Expr;
@@ -23,7 +23,7 @@ class Macro
 	
 	public static function buildExtractor():Type
 	{
-		var t = getType('anon.Extractor');
+		var t = getType('tink.validation.Extractor');
 		var name = 'Extractor${counter++}';
 		var ct = t.toComplex();
 		var pos = Context.currentPos();
@@ -75,10 +75,10 @@ class GenExtractor {
 		// TODO: should make a copy? i.e. `Date.fromTime(value.getTime())`
 		
 	static public function bytes()
-		return macro throw "Not supported";
+		return macro if(!Std.is(value, Bytes)) throw 'The value `' + value + '` should be Bytes' else value;
 		
 	static public function map(k, v)
-		return macro throw "Not supported";
+		return macro if(!Std.is(value, Map)) throw 'The value `' + value + '` should be Map' else value;
 		
 	static public function anon(fields:Array<FieldInfo>, ct)
 		return (macro function (value:$ct) {
@@ -104,7 +104,7 @@ class GenExtractor {
 	}
 		
 	static public function enm(_, _, _, _)
-		return macro throw "Not supported";
+		return macro if(!Reflect.isEnumValue(value)) throw 'The value `' + value + '` should be an EnumValue' else value;
 		
 	static public function dyn(_, _)
 		return macro value;

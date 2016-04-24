@@ -1,0 +1,4 @@
+-cp ./tests/
+-main RunTests
+-neko bin/neko.n
+-lib tink_clone

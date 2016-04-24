@@ -1,8 +1,8 @@
 {
-  "name": "anon",
-  "url": "https://github.com/kevinresol/anon",
+  "name": "tink_validation",
+  "url": "https://github.com/haxetink/tink_validation",
   "license": "MIT",
-  "tags":["cross", "anon"],
+  "tags":["cross", "validation"],
   "classPath": "src",
   "contributors": ["kevinresol"],
   "version": "0.0.1",

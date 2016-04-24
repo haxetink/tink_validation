@@ -1,3 +1,2 @@
 -cp ./tests/
 -main RunTests
--D dump
