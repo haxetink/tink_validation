@@ -5,8 +5,8 @@
   "tags":["cross", "validation"],
   "classPath": "src",
   "contributors": ["kevinresol"],
-  "version": "0.0.1",
-  "releasenote": "Initial commit",
+  "version": "0.1.0",
+  "releasenote": "Initial release",
   "dependencies": {
 	  "tink_typecrawler":""
   }
