@@ -15,31 +15,31 @@ class GenValidator {
 		return macro if(value != null) $e else null;
 		
 	static public function string()
-		return macro if(!Std.is(value, String)) throw 'The value `' + value + '` should be String';
+		return macro if(!Std.is(value, String)) throw tink.validation.Error.UnexpectedType(String, value);
 		
 	static public function int()
-		return macro if(!Std.is(value, Int)) throw 'The value `' + value + '` should be Int';
+		return macro if(!Std.is(value, Int)) throw tink.validation.Error.UnexpectedType(Int, value);
 		
 	static public function float()
-		return macro if(!Std.is(value, Float)) throw 'The value `' + value + '` should be Float';
+		return macro if(!Std.is(value, Float)) throw tink.validation.Error.UnexpectedType(Float, value);
 		
 	static public function bool()
-		return macro if(!Std.is(value, Bool)) throw 'The value `' + value + '` should be Bool';
+		return macro if(!Std.is(value, Bool)) throw tink.validation.Error.UnexpectedType(Bool, value);
 		
 	static public function date()
-		return macro if(!Std.is(value, Date)) throw 'The value `' + value + '` should be Date';
+		return macro if(!Std.is(value, Date)) throw tink.validation.Error.UnexpectedType(Date, value);
 		
 	static public function bytes()
-		return macro if(!Std.is(value, Bytes)) throw 'The value `' + value + '` should be Bytes';
+		return macro if(!Std.is(value, haxe.io.Bytes)) throw tink.validation.Error.UnexpectedType(haxe.io.Bytes, value);
 		
 	static public function map(k, v)
-		return macro if(!Std.is(value, Map)) throw 'The value `' + value + '` should be Map';
+		return macro if(!Std.is(value, Map)) throw tink.validation.Error.UnexpectedType(Map, value);
 		
 	static public function anon(fields:Array<FieldInfo>, ct)
 		return (macro function (value:$ct) {
 			$b{[for(f in fields) {
 				var name = f.name;
-				var assert = f.optional ? macro null : macro if(!Reflect.hasField(value, $v{name})) throw $v{'Field `${f.name}` should not be null'};
+				var assert = f.optional ? macro null : macro if(!Reflect.hasField(value, $v{name})) throw throw tink.validation.Error.MissingField($v{name});
 				macro {
 					$assert;
 					var value = value.$name;
@@ -52,7 +52,7 @@ class GenValidator {
 	static public function array(e:Expr)
 	{
 		return macro {
-			if(!Std.is(value, Array)) throw 'The value `' + value + '` should be Array';
+			if(!Std.is(value, Array)) throw tink.validation.Error.UnexpectedType(Array, value);
 			[for(value in (value:Array<Dynamic>)) $e];
 		}
 	}
@@ -66,7 +66,7 @@ class GenValidator {
 				ret;
 			default: throw 'assert';
 		}
-		return macro if(!Std.is(value, $p{name})) throw 'The value `' + value + '` should be an EnumValue';
+		return macro if(!Std.is(value, $p{name})) throw tink.validation.Error.UnexpectedType($p{name}, value);
 	}
 		
 	static public function dyn(_, _)
