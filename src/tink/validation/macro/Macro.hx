@@ -36,6 +36,11 @@ class Macro
 			public function new() {}
 		}
 		
+		cl.meta.push({
+			name: ':keep',
+			pos: pos,
+		});
+		
 		function add(t:TypeDefinition)
 			cl.fields = cl.fields.concat(t.fields);
 		
@@ -67,6 +72,11 @@ class Macro
 		var cl = macro class $name {
 			public function new() {}
 		}
+		
+		cl.meta.push({
+			name: ':keep',
+			pos: pos,
+		});
 		
 		function add(t:TypeDefinition)
 			cl.fields = cl.fields.concat(t.fields);
