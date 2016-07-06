@@ -1,4 +1,6 @@
-# tink_validation [![Build Status](https://travis-ci.org/haxetink/tink_validation.svg?branch=master)](https://travis-ci.org/haxetink/tink_validation)
+# tink_validation 
+[![Build Status](https://travis-ci.org/haxetink/tink_validation.svg?branch=master)](https://travis-ci.org/haxetink/tink_validation)
+[![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg?maxAge=2592000)](https://gitter.im/haxetink/public)
 
 Runtime type check and value extractor for dynamic objects
 
