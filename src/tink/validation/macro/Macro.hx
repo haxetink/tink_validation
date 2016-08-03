@@ -14,8 +14,6 @@ using tink.MacroApi;
 class Macro
 {
 	static var counter = 0;
-	static var extractors:TypeMap<Type> = new TypeMap();
-	static var validators:TypeMap<Type> = new TypeMap();
 	
 	static function getType(name)
 		return 
@@ -27,7 +25,6 @@ class Macro
 	public static function buildExtractor():Type
 	{
 		var t = getType('tink.validation.Extractor');
-		if(extractors.exists(t)) return extractors.get(t);
 		var name = 'Extractor${counter++}';
 		var ct = t.toComplex();
 		var pos = Context.currentPos();
@@ -56,15 +53,12 @@ class Macro
 		});
 		
 		Context.defineType(cl);
-		var type = Context.getType(name);
-		extractors.set(t, type);
-		return type;
+		return Context.getType(name);
 	}
 	
 	public static function buildValidator():Type
 	{
 		var t = getType('tink.validation.Validator');
-		if(validators.exists(t)) return validators.get(t);
 		var name = 'Validator${counter++}';
 		var ct = t.toComplex();
 		var pos = Context.currentPos();
@@ -93,9 +87,7 @@ class Macro
 		});
 		
 		Context.defineType(cl);
-		var type = Context.getType(name);
-		validators.set(t, type);
-		return type;
+		return Context.getType(name);
 	}
 }
 
