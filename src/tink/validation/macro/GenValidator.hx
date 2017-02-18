@@ -6,10 +6,11 @@ import tink.typecrawler.FieldInfo;
 
 using haxe.macro.Tools;
 using tink.MacroApi;
+using tink.CoreApi;
 
 class GenValidator {
-	static public function args()
-		return ['value'];
+	static public function wrap(placeholder:Expr, ct:ComplexType)
+		return placeholder.func(['value'.toArg(ct)], false);
 		
 	static public function nullable(e)
 		return macro if(value != null) $e else null;
@@ -36,10 +37,10 @@ class GenValidator {
 		return macro if(!Std.is(value, Map)) throw tink.validation.Error.UnexpectedType(Map, value);
 		
 	static public function anon(fields:Array<FieldInfo>, ct)
-		return (macro function (value:$ct) {
+		return macro {
 			$b{[for(f in fields) {
 				var name = f.name;
-				var assert = f.optional ? macro null : macro if(!Reflect.hasField(value, $v{name})) throw throw tink.validation.Error.MissingField($v{name});
+				var assert = f.optional ? macro null : macro if(!Reflect.hasField(value, $v{name})) throw tink.validation.Error.MissingField($v{name});
 				macro {
 					$assert;
 					var value = value.$name;
@@ -47,7 +48,7 @@ class GenValidator {
 				}
 			}]}
 			return null;
-		}).getFunction().sure();
+		}
 		
 	static public function array(e:Expr)
 	{
@@ -78,7 +79,7 @@ class GenValidator {
 	static public function reject(t:Type)
 		return 'Cannot validate ${t.toString()}';
 		
-	static public function rescue(t:Type, _, _)
+	static public function rescue(t:Type, _, _) 
 		return switch t {
 			case TDynamic(t) if (t == null):
 				Some(dyn(null, null));

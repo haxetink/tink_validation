@@ -6,10 +6,11 @@ import tink.typecrawler.FieldInfo;
 
 using haxe.macro.Tools;
 using tink.MacroApi;
+using tink.CoreApi;
 
 class GenExtractor {
-	static public function args()
-		return ['value'];
+	static public function wrap(placeholder:Expr, ct:ComplexType) 
+		return placeholder.func(['value'.toArg(ct)]);
 		
 	static public function nullable(e)
 		return macro if(value != null) $e else null;
@@ -33,31 +34,30 @@ class GenExtractor {
 	static public function bytes()
 		return macro if(!Std.is(value, haxe.io.Bytes)) throw tink.validation.Error.UnexpectedType(haxe.io.Bytes, value) else value;
 		
-	static public function map(k, v)
-		return macro if(!Std.is(value, Map)) throw tink.validation.Error.UnexpectedType(Map, value) else value;
+	static public function map(k, v):Expr
+		throw "unsupported";
+		// return macro if(!Std.is(value, Map)) throw tink.validation.Error.UnexpectedType(Map, value) else value;
 		
 	static public function anon(fields:Array<FieldInfo>, ct)
-		return (macro function (value:$ct) {
+		return macro {
 			var __ret:Dynamic = {};
 			$b{[for(f in fields) {
 				var name = f.name;
-				var assert = f.optional ? macro null : macro if(!Reflect.hasField(value, $v{name})) throw throw tink.validation.Error.MissingField($v{name});
+				// var assert = f.optional ? macro null : macro if(!Reflect.hasField(value, $v{name})) throw tink.validation.Error.MissingField($v{name});
 				macro {
-					$assert;
+					// $assert;
 					var value = value.$name;
 					__ret.$name = ${f.expr};
 				}
 			}]}
-			return __ret;
-		}).getFunction().sure();
+			__ret;
+		}
 		
 	static public function array(e:Expr)
-	{
 		return macro {
 			if(!Std.is(value, Array)) throw tink.validation.Error.UnexpectedType(Array, value);
 			[for(value in (value:Array<Dynamic>)) $e];
 		}
-	}
 		
 	static public function enm(_, ct, _, _) {
 		var name = switch ct {
@@ -80,11 +80,12 @@ class GenExtractor {
 	static public function reject(t:Type)
 		return 'Cannot extract ${t.toString()}';
 		
-	static public function rescue(t:Type, _, _)
+	static public function rescue(t:Type, _, _) {
 		return switch t {
 			case TDynamic(t) if (t == null):
 				Some(dyn(null, null));
 			default: 
 				None;
 		}
+	}
 }
