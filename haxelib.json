@@ -5,8 +5,8 @@
   "tags":["cross", "validation"],
   "classPath": "src",
   "contributors": ["kevinresol"],
-  "version": "0.1.0",
-  "releasenote": "Initial release",
+  "version": "0.2.0",
+  "releasenote": "Update to typecrawler's new API",
   "dependencies": {
 	  "tink_typecrawler":""
   }
