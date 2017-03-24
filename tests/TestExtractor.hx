@@ -69,5 +69,35 @@ class TestExtractor extends TestCase
 		
 		assertTrue(Reflect.hasField(r, 'g'));
 		assertEquals(null, r.g);
+
+		source = {a:1, b:'b', c:"c", d:{a:1, b:1}, e:{a:1, b:1}, f:[{a:1},{a:2}]};
+		try {
+			var r:{?c:String, b:Float, f:Array<{a:Int}>, ?g:Bool} = Validation.extract(source);
+			assertTrue(false);
+		} catch(e: tink.validation.Error) {
+			assertTrue(Type.enumConstructor(e) == 'UnexpectedType');
+			var path: Array<String> = Type.enumParameters(e)[0];
+			assertTrue(path.length == 1 && path.join('.') == 'b');
+			assertTrue(Type.enumParameters(e)[1] == Float);
+			assertTrue(Type.enumParameters(e)[2] == 'b');
+		} catch(e: Dynamic) {
+			assertTrue(false);
+		}
+
+		// f.a is a String
+		source = untyped {a:1, b:1, c:"c", d:{a:1, b:1}, e:{a:1, b:1}, f:[{a:'a'},{a:2}]};
+		
+		try {
+			Validation.validate((source:{?c:String, b:Float, f:Array<{a:Int}>, ?g:Bool}));
+			assertTrue(false);
+		} catch (e:tink.validation.Error) {
+			assertTrue(Type.enumConstructor(e) == 'UnexpectedType');
+			var path: Array<String> = Type.enumParameters(e)[0];
+			assertTrue(path.length == 2 && path.join('.') == 'f.a');
+			assertTrue(Type.enumParameters(e)[1] == Int);
+			assertTrue(Type.enumParameters(e)[2] == 'a');
+		} catch (e:Dynamic) {
+			assertTrue(false);
+		}
 	}
 }
