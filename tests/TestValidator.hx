@@ -51,6 +51,29 @@ class TestValidator extends TestCase {
 			fail('should be valid');
 		}
 	}
+
+	function testPrimitiveArray() {
+		var source: Dynamic = ['a'];
+		try {
+			Validation.validate((source: Array<String>));
+			assertTrue(Std.is(source, Array));
+			assertEquals('a', source[0]);
+		} catch(e: Dynamic) {
+			fail('should be valid');
+		}
+
+		source = {a: 1, b: ['a']};
+		try {
+			Validation.validate((source: {a: Int, b: Array<String>}));
+			assertTrue(Reflect.hasField(source, 'a'));
+			assertEquals(1, source.a);
+			assertTrue(Reflect.hasField(source, 'b'));
+			assertTrue(Std.is(source.b, Array));
+			assertEquals('a', source.b[0]);
+		} catch(e: Dynamic) {
+			fail('should be valid');
+		}
+	}
 	
 	function testComplex()
 	{

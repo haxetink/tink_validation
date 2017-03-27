@@ -60,13 +60,12 @@ class GenValidator {
 	{
 		return macro {
 			if(!Std.is(value, Array)) throw tink.validation.Error.UnexpectedType(path, Array, value);
-			[for(i in 0...(value:Array<Dynamic>).length) {
+			for(i in 0...(value:Array<Dynamic>).length) {
 				var value = (value:Array<Dynamic>)[i];
 				path.push(Std.string(i));
-				var __ret = $e;
+				$e;
 				path.pop();
-				__ret;
-			}];
+			};
 		}
 	}
 		
