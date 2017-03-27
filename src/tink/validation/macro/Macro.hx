@@ -30,7 +30,8 @@ class Macro
 		var pos = Context.currentPos();
 		
 		var cl = macro class $name {
-			public function new() {}
+			var path: Array<String>;
+			public function new(){}
 		}
 		
 		cl.meta.push({
@@ -41,11 +42,12 @@ class Macro
 		function add(t:TypeDefinition)
 			cl.fields = cl.fields.concat(t.fields);
 		
-		var ret = Crawler.crawl(t, pos, GenExtractor);
+		var ret = Crawler.crawl(t, pos, new GenExtractor());
 		cl.fields = cl.fields.concat(ret.fields);
 		
 		add(macro class {
 			public function extract(value) @:pos(ret.expr.pos) {
+				path = [];
 				return ${ret.expr};
 			}
 			public function tryExtract(value)
@@ -64,7 +66,8 @@ class Macro
 		var pos = Context.currentPos();
 		
 		var cl = macro class $name {
-			public function new() {}
+			var path: Array<String>;
+			public function new(){}
 		}
 		
 		cl.meta.push({
@@ -75,11 +78,12 @@ class Macro
 		function add(t:TypeDefinition)
 			cl.fields = cl.fields.concat(t.fields);
 		
-		var ret = Crawler.crawl(t, pos, GenValidator);
+		var ret = Crawler.crawl(t, pos, new GenValidator());
 		cl.fields = cl.fields.concat(ret.fields);
 		
 		add(macro class {
 			public function validate(value) @:pos(ret.expr.pos) {
+				path = [];
 				${ret.expr};
 			}
 			public function tryValidate(value)

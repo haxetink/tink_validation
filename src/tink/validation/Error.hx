@@ -1,6 +1,6 @@
 package tink.validation;
 
 enum Error {
-	MissingField(field:String);
-	UnexpectedType(expectedType:Dynamic, actualValue:Dynamic);
+	MissingField(path: Array<String>);
+	UnexpectedType(path: Array<String>, expectedType:Dynamic, actualValue:Dynamic);
 }
