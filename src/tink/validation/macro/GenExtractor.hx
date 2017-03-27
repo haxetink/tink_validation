@@ -62,7 +62,13 @@ class GenExtractor {
 	public function array(e:Expr)
 		return macro {
 			if(!Std.is(value, Array)) throw tink.validation.Error.UnexpectedType(path, Array, value);
-			[for(value in (value:Array<Dynamic>)) $e];
+			[for(i in 0...(value:Array<Dynamic>).length) {
+				var value = (value:Array<Dynamic>)[i];
+				path.push(Std.string(i));
+				var __ret = $e;
+				path.pop();
+				__ret;
+			}];
 		}
 		
 	public function enm(_, ct, _, _) {

@@ -31,8 +31,7 @@ class Macro
 		
 		var cl = macro class $name {
 			var path: Array<String>;
-			public function new()
-				path = [];
+			public function new(){}
 		}
 		
 		cl.meta.push({
@@ -48,6 +47,7 @@ class Macro
 		
 		add(macro class {
 			public function extract(value) @:pos(ret.expr.pos) {
+				path = [];
 				return ${ret.expr};
 			}
 			public function tryExtract(value)
@@ -67,8 +67,7 @@ class Macro
 		
 		var cl = macro class $name {
 			var path: Array<String>;
-			public function new()
-				path = [];
+			public function new(){}
 		}
 		
 		cl.meta.push({
@@ -84,6 +83,7 @@ class Macro
 		
 		add(macro class {
 			public function validate(value) @:pos(ret.expr.pos) {
+				path = [];
 				${ret.expr};
 			}
 			public function tryValidate(value)
