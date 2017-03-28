@@ -3,6 +3,7 @@ package tink.validation.macro;
 import haxe.macro.Expr;
 import haxe.macro.Type;
 import tink.typecrawler.FieldInfo;
+import tink.typecrawler.Generator;
 
 using haxe.macro.Tools;
 using tink.MacroApi;
@@ -103,4 +104,10 @@ class GenExtractor {
 				None;
 		}
 	}
+	 
+	public function shouldIncludeField(c:ClassField, owner:Option<ClassType>):Bool
+		return Helper.shouldIncludeField(c, owner);
+	
+	public function drive(type:Type, pos:Position, gen:Type->Position->Expr):Expr
+		return gen(type, pos);
 }
