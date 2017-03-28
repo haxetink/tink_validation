@@ -86,6 +86,9 @@ class GenExtractor {
 			value;
 		};
 	}
+	
+	public function enumAbstract(names:Array<String>, e:Expr):Expr
+		throw 'not implemented';
 		
 	public function dyn(_, _)
 		return macro value;
