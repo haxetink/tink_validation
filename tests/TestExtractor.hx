@@ -1,5 +1,6 @@
 package;
 
+import haxe.Int64;
 import haxe.unit.TestCase;
 import haxe.unit.TestRunner;
 import tink.Validation;
@@ -100,6 +101,24 @@ class TestExtractor extends TestCase
 		} catch (e:Dynamic) {
 			assertTrue(false);
 		}
+	}
+	
+	function testInt64() {
+		// var source:Dynamic= {i: Int64.make(1, 1)};
+		var source:Dynamic= {
+			#if js js: {high: 1, low: 1}, #end
+			i: 1,
+			i64: Int64.make(1, 1),
+		};
+		var r:{
+			#if js js:Int64, #end
+			i:Int64,
+			i64:Int64,
+		} = Validation.extract(source);
+		
+		#if js assertTrue(r.js == Int64.make(1, 1)); #end
+		assertTrue(r.i == Int64.make(0, 1));
+		assertTrue(r.i64 == Int64.make(1, 1));
 	}
 
 	function testWithExtractor() {

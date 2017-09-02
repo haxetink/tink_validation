@@ -2,6 +2,7 @@ package tink.validation.macro;
 
 import haxe.macro.Expr;
 import haxe.macro.Type;
+import haxe.macro.Context;
 import tink.typecrawler.FieldInfo;
 import tink.typecrawler.Generator;
 
@@ -15,7 +16,7 @@ class GenExtractor {
 	}
 
 	public function wrap(placeholder:Expr, ct:ComplexType)
-		return placeholder.func(['value'.toArg(ct)]);
+		return placeholder.func(['value'.toArg(macro:Dynamic)]);
 		
 	public function nullable(e)
 		return macro if(value != null) $e else null;
@@ -103,6 +104,9 @@ class GenExtractor {
 		return switch t {
 			case TDynamic(t) if (t == null):
 				Some(dyn(null, null));
+			// https://github.com/haxetink/tink_typecrawler/issues/18
+			case _.getID() => id if(id == (Context.defined('java') ? 'java.Int64' : Context.defined('cs') ? 'cs.Int64' : 'haxe._Int64.___Int64')):
+				Some(macro extractInt64(value));
 			default: 
 				None;
 		}

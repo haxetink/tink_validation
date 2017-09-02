@@ -1,5 +1,6 @@
 package;
 
+import haxe.Int64;
 import haxe.unit.TestCase;
 import haxe.unit.TestRunner;
 import tink.Validation;
@@ -169,6 +170,19 @@ class TestValidator extends TestCase {
 			assertTrue(Type.enumParameters(e)[2] == 'a');
 		} catch (e:Dynamic) {
 			fail('should fail but not like that');
+		}
+	}
+	
+	function testInt64() {
+		// var source:Dynamic= {i: Int64.make(1, 1)};
+		var source:Dynamic= {
+			i64: Int64.make(1, 1),
+		};
+		try {
+			 Validation.validate((source:{i64:Int64}));
+			 assertTrue(true);
+		} catch (e:Dynamic) {
+			fail('should be valid');
 		}
 	}
 

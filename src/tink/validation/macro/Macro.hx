@@ -29,10 +29,7 @@ class Macro
 		var ct = t.toComplex();
 		var pos = Context.currentPos();
 		
-		var cl = macro class $name {
-			var path: Array<String>;
-			public function new(){}
-		}
+		var cl = macro class $name extends tink.validation.Extractor.ExtractorBase {}
 		
 		cl.meta.push({
 			name: ':keep',
@@ -65,9 +62,7 @@ class Macro
 		var ct = t.toComplex();
 		var pos = Context.currentPos();
 		
-		var cl = macro class $name {
-			var path: Array<String>;
-			public function new(){}
+		var cl = macro class $name extends tink.validation.Validator.ValidatorBase {
 		}
 		
 		cl.meta.push({
