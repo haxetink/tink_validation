@@ -16,7 +16,7 @@ class ExtractorBase {
 		if(Std.is(value, Int)) {
 			var v:Int = value;
 			// TODO: not sure if we should treat high = v >> 32
-			return Int64.make(0, v & 0xffff);
+			return Int64.make(0, v);
 		}
 		#if js
 			if(Reflect.isObject(value) && Reflect.hasField(value, 'high') && Reflect.hasField(value, 'low')) {

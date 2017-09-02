@@ -106,9 +106,9 @@ class TestExtractor extends TestCase
 	function testInt64() {
 		// var source:Dynamic= {i: Int64.make(1, 1)};
 		var source:Dynamic= {
-			#if js js: {high: 1, low: 1}, #end
-			i: 1,
-			i64: Int64.make(1, 1),
+			#if js js: {high: 0x1ffff, low: 0x1ffff}, #end
+			i: 0x1ffff,
+			i64: Int64.make(0x1ffff, 0x1ffff),
 		};
 		var r:{
 			#if js js:Int64, #end
@@ -116,9 +116,9 @@ class TestExtractor extends TestCase
 			i64:Int64,
 		} = Validation.extract(source);
 		
-		#if js assertTrue(r.js == Int64.make(1, 1)); #end
-		assertTrue(r.i == Int64.make(0, 1));
-		assertTrue(r.i64 == Int64.make(1, 1));
+		#if js assertTrue(r.js == Int64.make(0x1ffff, 0x1ffff)); #end
+		assertTrue(r.i == Int64.make(0, 0x1ffff));
+		assertTrue(r.i64 == Int64.make(0x1ffff, 0x1ffff));
 	}
 
 	function testWithExtractor() {
