@@ -12,5 +12,5 @@ install:
   - npm install -g travlix
 
 script:
-  - travlix run --haxe 3.4.4 --target interp,neko,python,node,flash,java,cpp,cs,php
+  - travlix run --haxe 3.4.4 --target interp,neko,python,node,java,cpp,cs,php
   
