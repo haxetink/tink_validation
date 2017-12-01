@@ -1,2 +1,2 @@
--cp ./tests/
+-cp tests
 -main RunTests
