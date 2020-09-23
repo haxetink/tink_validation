@@ -44,19 +44,19 @@ The validator will only check the existence of fields and their type. If everyth
 
 ```haxe
 var source:Dynamic = {a:1, b:"2"};
-Validation.extract((source: {a:Int})); // OK
+Validation.validate((source: {a:Int})); // OK
 
 var source:Dynamic = {a:1, b:"2"};
-Validation.extract((source: {a:Int, ?c:Int})); // OK
+Validation.validate((source: {a:Int, ?c:Int})); // OK
 
 var source: Dynamic = {a:"a", b: "2"};
-Validation.extract((source: {a:Int, c:Int})); // will throw MissingField([c]);
+Validation.validate((source: {a:Int, c:Int})); // will throw MissingField([c]);
 
 var source: Dynamic = {a:1, c: "2"};
-Validation.extract((source: {a:Int, c:Int})); // will throw UnexpectedType([c], Int, "2");
+Validation.validate((source: {a:Int, c:Int})); // will throw UnexpectedType([c], Int, "2");
 
 var source: Dynamic = {a:1, c: {a:1, b:2}};
-Validation.extract((source: {a:Int, c:{a:Int, b:String}})); // will throw UnexpectedType([c,b], String, 2);
+Validation.validate((source: {a:Int, c:{a:Int, b:String}})); // will throw UnexpectedType([c,b], String, 2);
 ```
 
 ### Errors
