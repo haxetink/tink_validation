@@ -11,7 +11,7 @@ class ValidatorBase {
 	public function new() {}
 	
 	function validateInt64(value:Dynamic) {
-		if(Int64.is(value)) return;
+		if(Int64.isInt64(value)) return;
 		
 		// if(Std.is(value, Int)) {
 		// 	return;

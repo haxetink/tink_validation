@@ -11,7 +11,7 @@ class ExtractorBase {
 	public function new() {}
 	
 	function extractInt64(value:Dynamic) {
-		if(Int64.is(value)) return value;
+		if(Int64.isInt64(value)) return value;
 		
 		if(Std.is(value, Int)) {
 			var v:Int = value;
